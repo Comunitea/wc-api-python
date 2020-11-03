@@ -90,7 +90,9 @@ class API(object):
         if data is not None:
             data = jsonencode(data, ensure_ascii=False).encode('utf-8')
             headers["content-type"] = "application/json;charset=utf-8"
-
+        if 'custom_headers' in kwargs.keys():
+            headers = {**headers, **kwargs['custom_headers']}
+            kwargs.pop('custom_headers')
         return request(
             method=method,
             url=url,
