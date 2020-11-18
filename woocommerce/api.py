@@ -71,6 +71,7 @@ class API(object):
         url = self.__get_url(endpoint)
         auth = None
         headers = kwargs.get('headers', {})
+        kwargs.pop('headers')
         headers['user-agent'] = "WooCommerce API Client-Python/%s" % __version__
         headers['accept'] = "application/json"
 
