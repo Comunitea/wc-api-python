@@ -70,10 +70,9 @@ class API(object):
             params = {}
         url = self.__get_url(endpoint)
         auth = None
-        headers = {
-            "user-agent": "WooCommerce API Client-Python/%s" % __version__,
-            "accept": "application/json"
-        }
+        headers = kwargs.get('headers', {})
+        headers['user-agent'] = "WooCommerce API Client-Python/%s" % __version__
+        headers['accept'] = "application/json"
 
         if self.is_ssl is True and self.query_string_auth is False:
             auth = (self.consumer_key, self.consumer_secret)
@@ -87,7 +86,7 @@ class API(object):
             url = "%s?%s" % (url, encoded_params)
             url = self.__get_oauth_url(url, method, **kwargs)
 
-        if data is not None:
+        if data is not None and not headers.get('content-type'):
             data = jsonencode(data, ensure_ascii=False).encode('utf-8')
             headers["content-type"] = "application/json;charset=utf-8"
 
