@@ -70,8 +70,7 @@ class API(object):
             params = {}
         url = self.__get_url(endpoint)
         auth = None
-        headers = kwargs.get('headers', {})
-        kwargs.pop('headers')
+        headers = kwargs.get('custom_headers', {})
         headers['user-agent'] = "WooCommerce API Client-Python/%s" % __version__
         headers['accept'] = "application/json"
 
